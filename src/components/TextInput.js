@@ -4,11 +4,11 @@ const TextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props)
 
     return (
-        <div>
-            <label>{label}</label>
-            <input {...field} />
+        <div className='control'>
+            <label className='label'>{label}</label>
+            <input className='input' {...field} />
             {meta.touched && meta.error
-                ? <div>{meta.error}</div>
+                ? <div className='error'>{meta.error}</div>
                 : null }
         </div>
     )

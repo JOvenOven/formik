@@ -1,5 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import Checkbox from './components/Checkbox'
+import Radio from './components/Radio'
 import TextInput from './components/TextInput'
+import Select from './components/Select'
 
 const validate = (values) => {
   const errors = {}
@@ -16,26 +19,39 @@ const validate = (values) => {
     errors.lastname = 'El apellido es muy corto'
   }
 
+  if(!values.radio) {
+    errors.radio = 'Requerido'
+  }
+
   return errors
 }
 
 function App() {
   return (
     <Formik
-      initialValues={{ name: '', lastname: '', email: '', }}
+      initialValues={{ name: '', lastname: '', email: '', chancho: '', radio: '' }}
       validate={validate}
       onSubmit={values => console.log(values)}
     >
       <Form>
         <TextInput name="name" label="Nombre" />
         <br />
-        <label>Apellido</label>
-        <Field name="lastname" type="text" />
-        <ErrorMessage name="lastname" />
+        <TextInput name="lastname" label="Apellido" />
         <br />
-        <label>Email</label>
-        <Field name="email" type="email" />
-        <ErrorMessage name="email" />
+        <TextInput name="email" label="Correo" />
+        <Select label="Tipo de chancho" name="chancho">
+          <option value="">Seleccione chancho</option>
+          <option value="felipe">Felipe</option>
+          <option value="chanchitofeliz">chanchito Feliz</option>
+          <option value="chanchitotriste">chanchito Triste</option>
+        </Select>
+        <Checkbox name="accept">
+          Aceptar términos y condiciones
+        </Checkbox>
+        <Radio name="radio" value="chanchito1" label="chanchito 1" />
+        <Radio name="radio" value="chanchito2" label="chanchito 2" />
+        <Radio name="radio" value="chanchito3" label="chanchito 3" />
+        <ErrorMessage name="radio" />
         <button type="submit">Enviar</button>
       </Form>
     </Formik>
